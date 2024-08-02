@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import *
 from openpyxl import load_workbook as load_wb
 import win32com.client as win32
 
