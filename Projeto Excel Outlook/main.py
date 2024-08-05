@@ -24,7 +24,7 @@ def inserir(x):
 # -=-=-=-=--=--=--=--=--=--=--=--=--=--=-=--=-=-Janela--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=-
 
 def abrir_janela():
-    global data_entry, diretorio_entry, janela
+    global data_entrada, diretorio_entry, janela
     janela_principal.destroy()
 
     # Janelas
@@ -71,11 +71,11 @@ def capturar_dados():
 
 # -=-=-=-=--=--=--=--=--=--=--=--=--=--=-=--=--Importar--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=
 
-def obter_numero_de_emails(data):
+def obter_numero_de_emails():
     outlook = win32.Dispatch('Outlook.Application').GetNamespace('MAPI')
     inbox = outlook.GetDefaultFolder(6)  # Ele vai pegar a caixa n° 6 do outlook, no caso o inbox
 
-    lista = data_entry.get().split('/')
+    lista = data_entrada.get().split('/')
     print(lista)
     dia, mes, ano = lista
 
@@ -97,7 +97,7 @@ def obter_numero_de_emails(data):
 
 def criar_p():
     global data
-    data = data_entry.get()  # Pega a data da caixinha
+    data = data_entrada.get()  # Pega a data da caixinha
     if not data:
         messagebox.showerror("Erro", "A data deve ser preenchida.")
         return
@@ -108,7 +108,7 @@ def criar_p():
         messagebox.showerror("Erro de Formato", "A data deve estar no formato dd/mm/yyyy.")
         return
 
-    n_mensagens = obter_numero_de_emails(data)  # obtem os numeros com a data
+    n_mensagens = obter_numero_de_emails()  # obtem os numeros
 
     cursor.execute("SELECT * FROM dados")
     registro1 = cursor.fetchall()
@@ -137,8 +137,8 @@ janela_principal.minsize(width=200, height=250)
 # data labels
 data_label = ctk.CTkLabel(janela_principal, text="Data (dd/mm/yyyy):")
 data_label.pack(pady=10)
-data_entry = ctk.CTkEntry(janela_principal)
-data_entry.pack(pady=5)
+data_entrada = ctk.CTkEntry(janela_principal)
+data_entrada.pack(pady=5)
 
 # botão de atualizar
 atualizar_button = ctk.CTkButton(janela_principal, text="Atualizar Dados", command=abrir_janela)
